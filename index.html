@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Blackjack Game</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script type="text/javascript" src="scripts.js"></script>
+</head>
+<body>
+	<div class="play-field">
+		<div id="win-loss">Wins: <div id="win-count">0</div></div>
+		<div class="hand dealer-hand">
+			<div id="dealer-total-wrapper">Dealer Total<div id="dealer-total">0</div></div>
+			<div id="dealer-card-space1" class="card-empty">-</div>
+			<div id="dealer-card-space2" class="card-empty">-</div>
+			<div id="dealer-card-space3" class="card-empty">-</div>
+			<div id="dealer-card-space4" class="card-empty">-</div>
+			<div id="dealer-card-space5" class="card-empty">-</div>
+			<div id="dealer-card-space6" class="card-empty">-</div>
+		</div>
+		<div class="hand player-hand">
+			<div id="player-total-wrapper">Player Total<div id="player-total">0</div></div>
+			<div id="player-card-space1" class="card-empty">-</div>
+			<div id="player-card-space2" class="card-empty">-</div>
+			<div id="player-card-space3" class="card-empty">-</div>
+			<div id="player-card-space4" class="card-empty">-</div>
+			<div id="player-card-space5" class="card-empty">-</div>
+			<div id="player-card-space6" class="card-empty">-</div>
+		</div>
+		<div class="buttons">
+			<button id="draw-button" onclick="deal()" class="button">Deal</button>
+			<button id="hit-button" onclick="hit()" class="button">Hit</button>
+			<button id="stand-button" onclick="stand()" class="button">Stand</button>
+		</div>
+	</div>
+	
+</body>
+</html>

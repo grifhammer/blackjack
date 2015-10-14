@@ -1,0 +1,158 @@
+.buttons{
+	height: 10%;
+	width: 100%;
+	padding: 0 0 10%;
+	position: relative;
+}
+
+button{
+	color: black;
+	background: gray;
+	width: 15%;
+	font-size: 24px;
+	display: inline;
+	position: absolute;
+}
+
+#draw-button{
+	top: 0%;
+	left: 15%;
+}
+
+#hit-button{
+	top: 0%;
+	left: 47%;
+}
+
+#stand-button{
+	top: 0%;
+	left: 74%;
+}
+
+.hand{
+	padding: 8% 5%;
+	position: relative;
+}
+
+#win-loss{
+	background-color: red;
+	color: white;
+	width: 10%;
+	padding: 1% 0 1%;
+	text-align: center;
+	margin: auto;
+	position: relative;
+}
+
+#win-count{
+	display: inline;
+}
+.card-empty{
+	background: gray;
+	width: 8%;
+	/*height: 200px;*/
+	max-height: 25%;
+	margin: 0 0%;
+	padding: 1% 0 14%;
+	/*display: inline;*/
+	position: absolute;
+	text-align: center;
+	border: 2px dashed black;
+	/*float: left;*/
+}
+
+#player-card-space1{
+	/*margin-left: 10%;*/
+	top: 10%;
+	left: 28%;
+}
+
+#player-card-space2{
+	top: 10%;
+	left: 40%;
+}
+
+#player-card-space3{
+	top: 10%;
+	left: 52%;
+}
+
+#player-card-space4{
+	top: 10%;
+	left: 64%;
+}
+
+#player-card-space5{
+	top: 10%;
+	left: 76%;
+}
+
+#player-card-space6{
+	top: 10%;
+	left: 88%;
+}
+
+#dealer-card-space1{
+	/*margin-left: 10%;*/
+	top: 10%;
+	left: 28%;
+}
+
+#dealer-card-space2{
+	top: 10%;
+	left: 40%;
+}
+
+#dealer-card-space3{
+	top: 10%;
+	left: 52%;
+}
+
+#dealer-card-space4{
+	top: 10%;
+	left: 64%;
+}
+
+#dealer-card-space5{
+	top: 10%;
+	left: 76%;
+}
+
+#dealer-card-space6{
+	top: 10%;
+	left: 88%;
+}
+
+/*.hand{
+	width: 100%;
+	height: 25%;
+}*/
+
+#dealer-total-wrapper{
+	font-size: 24px;
+	display: inline;
+	color: white;
+	padding-right:2%;
+}
+
+#player-total-wrapper{
+	font-size: 24px;
+	display: inline;
+	color: white;
+}
+
+#player-total-wrapper #player-total {
+	margin-left: 5%;
+}
+
+#dealer-total-wrapper #dealer-total {
+	margin-left: 5%;
+}
+
+.play-field{
+	background: green;
+	border-radius: 10px;
+
+	padding:1% 0% 0%;
+	position: relative;
+}
