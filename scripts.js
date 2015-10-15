@@ -7,7 +7,6 @@ var winTotal = 0;
 var gameIsOver = false;
 const dealerBust = 2;
 const playerBust = 1;
-var wager = 0;
 
 
 function deal(){
@@ -16,7 +15,7 @@ function deal(){
 	resetGame();
 	//initialize spaces
 	
-	wager = prompt("Enter a Wager");
+
 	
 
 	// Store Cards for later reference
@@ -200,20 +199,24 @@ function bust(who) {
 		//player lost and dealer won
 		sendMessage("You have busted. Hit Deal to play again.");
 		isBust = playerBust;
-		endGame("loss");
+		winTotal--;
+		gameIsOver = true;
+		updateWins();
 
 	}else{
 		sendMessage("The Dealer busted! You Win! Hit Deal to play again.");
 		isBust = dealerBust;
-		endGame("win");
+		winTotal++;
+		gameIsOver = true;
+		updateWins();
 	}
 }
 
 function endGame(winOrLoss){
 	if(winOrLoss === "win"){
-		winTotal += Number(wager);
+		winTotal++;
 	}else if(winOrLoss === "loss"){
-		winTotal -= Number(wager);
+		winTotal--;
 	}
 	gameIsOver = true;
 	updateWins();
