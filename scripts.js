@@ -37,12 +37,23 @@ function deal(){
 
 }
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
 function clearSpace(cardSpace){
 	cardSpace.className = "card empty";
 	cardSpace.innerHTML = '-';
 }
 
 function placeCard(card, who, slot){
+	// A delay to make the game more dramatic
+	sleep(1000);
 	//gets element that we are placing a card in
 	currentSpace = document.getElementById(who + "-card-space" + slot)
 	if(card.match(/\d+/) == "13"){
