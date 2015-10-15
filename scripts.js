@@ -1,19 +1,73 @@
-var deck = [];
+var placeInDeck = 0;
 var playerCards = [];
 var dealerCards = [];
-//Get Player Card spaces
-for(i = 1; i <= 6; i++){
-	var idString = "player-card-space" + i.toString();
-	console.log(idString)
-	playerCards[i] = document.getElementById(idString);
-}
-//Get Dealer Card spaces
-for(i = 1; i <= 6; i++){
-	dealerCards[i] = document.getElementById("dealer-card-space" + i.toString());
-}
-console.log(playerCards);
-console.log(dealerCards);
+var playerSpaces = [];
+var dealerSpaces = [];
+var deck = [];
+var isBust = 0;
+var winTotal = 0;
+var gameIsOver = false;
+const dealerBust = 2;
+const playerBust = 1;
+
+
 function deal(){
+
+
+	resetGame();
+	//initialize spaces
+	
+
+	for(i = 0; i < 6; i++){
+		playerSpaces[i] = document.getElementById("player-card-space" + (i+1));
+		dealerSpaces[i] = document.getElementById("dealer-card-space" + (i+1));
+		clearSpace(playerSpaces[i]);
+		clearSpace(dealerSpaces[i]);
+	}
+
+	// Store Cards for later reference
+	playerCards[0] = deck[0];
+	playerCards[1] = deck[2];
+	dealerCards[0] = deck[1];
+	dealerCards[1] = deck[3];
+
+	// Place cards on play area
+	placeCard(deck[0],'player', 1);
+	placeCard(deck[1],'dealer', 1);
+	placeCard(deck[2],'player', 2);
+	placeCard(deck[3],'dealer', 2);
+
+	
+
+	placeInDeck = 4
+
+}
+
+function clearSpace(cardSpace){
+	cardSpace.className = "card empty";
+	cardSpace.innerHTML = '-';
+}
+
+function placeCard(card, who, slot){
+	//gets element that we are placing a card in
+	currentSpace = document.getElementById(who + "-card-space" + slot)
+	if(card.match(/\d+/) == "13"){
+		card =  "K" + card[2];
+	}else if(card.match(/\d+/) == "12"){
+		card = "Q" + card[2];
+	}else if(card.match(/\d+/) == "11"){
+		card = "J" + card[2];
+	}else if(card.match(/\d+/) == "1"){
+		card = "A" + card[1];
+	}
+	currentSpace.innerHTML = card;
+	currentSpace.className = "card";
+	calculateTotals();
+}
+
+
+function shuffleDeck(){
+
 	var deck = [];
 	// fill our deck in order (for now)
 	//suit loop
@@ -36,7 +90,7 @@ function deal(){
 			deck.push(i+suit);
 		}
 	}
-	console.log(deck);
+	// console.log(deck);
 
 	var numberOfTimesToShuffle = Math.floor( Math.random() * 500 + 500);
 	// Shuffle the deck
@@ -51,40 +105,135 @@ function deal(){
 
 	console.log(deck);
 
-	var playerSpaces = [];
-	var dealerSpaces = [];
-	for(i = 0; i < 6; i++){
-		playerSpaces[i] = document.getElementById("player-card-space" + (i+1));
-		dealerSpaces[i] = document.getElementById("dealer-card-space" + (i+1));
+	return deck;
+}
+
+function calculateTotals (){
+	var playerTotal = 0;
+	var dealerTotal = 0;
+	var numPlayerAces = 0;
+	var numDealerAces = 0;
+	for( i =0; i < playerCards.length; i++){
+		cardValue = Number(playerCards[i].match(/\d+/))
+		if(cardValue > 10){
+			cardValue = 10;
+		}else if(cardValue === 1){
+			cardValue = 11;
+			numPlayerAces++;
+		}
+		playerTotal += cardValue;
 	}
 
+	for( i =0; i < dealerCards.length; i++){
+		cardValue = Number(dealerCards[i].match(/\d+/))
+		if(cardValue > 10){
+			cardValue = 10;
+		}else if(cardValue === 1){
+			numDealerAces++;
+			cardValue = 11;
+		}
+		dealerTotal += cardValue;
+	}
 
-	//Deal starting cards to players
+	while(numPlayerAces > 0 && playerTotal > 21 ){
+		numPlayerAces--;
+		playerTotal -= 10;
+	}
+	while(numDealerAces > 0 && dealerTotal > 21 ){
+		numDealerAces --;
+		dealerTotal -= 10;
+	}
 
-	playerSpaces[0].innerHTML = deck[0];
-	dealerSpaces[0].innerHTML = deck[1];	
-	playerSpaces[1].innerHTML = deck[2];	
-	dealerSpaces[1].innerHTML = deck[3];
+	document.getElementById("player-total").innerHTML = playerTotal;
+	document.getElementById("dealer-total").innerHTML = dealerTotal;
 
-	playerSpaces[0].className = "card";	
-	playerSpaces[1].className = "card";	
-	dealerSpaces[0].className = "card";	
-	dealerSpaces[1].className = "card";	
+	
+	if( playerTotal > 21 ){
+		bust("player");
+	}else if( dealerTotal > 21 ){
+		bust("dealer");
+	}
+}
 
-	// for(i = 0; i<4; i++){
-	// 	if(i === 0){
-			
-	// 	}
+function getDealerTotal(){
+	return Number(document.getElementById("dealer-total").innerHTML)
+}
 
-	// }
-
-
+function getPlayerTotal(){
+	return Number(document.getElementById("player-total").innerHTML)
 }
 
 function stand(){
+	while( getDealerTotal() < 17 ) {
+		dealerCards.push(deck[placeInDeck]);
+		placeCard(deck[placeInDeck++], "dealer", dealerCards.length);
+	}
+	if(!isBust && !gameIsOver){
+		if(getPlayerTotal() > getDealerTotal()){
+			sendMessage("You Won!");
+			winTotal++;
+			gameIsOver = true;
+			updateWins();
+		}else{
+			sendMessage("You Lost!");
+			winTotal--;
+			gameIsOver = true;
+			updateWins();
+		}
+	}
+}
+
+function sendMessage(message){
+	document.getElementById("message").innerHTML = message;
+}
+
+function updateWins(){
+	document.getElementById("win-count").innerHTML = winTotal;
+}
+
+function bust(who) {
+	if(who === "player"){
+		//player lost and dealer won
+		sendMessage("You have busted. Hit Deal to play again.");
+		isBust = playerBust;
+		winTotal--;
+		gameIsOver = true;
+		updateWins();
+
+	}else{
+		sendMessage("The Dealer busted! You Win! Hit Deal to play again.");
+		isBust = dealerBust;
+		winTotal++;
+		gameIsOver = true;
+		updateWins();
+	}
+}
+
+function endGame(){
 
 }
 
-function hit(){
+function resetGame(){
+	placeinDeck = 0;
+	playerCards = [];
+	dealerCards = [];
+	isBust = 0;
+	sendMessage("");
+	gameIsOver = false;
+	deck = shuffleDeck();
+	document.getElementById("player-total").innerHTML = 0;
+	document.getElementById("dealer-total").innerHTML = 0;
+	sendMessage('');
+}
 
+function hit(){
+	if(!gameIsOver){
+		if( isBust === playerBust){
+			sendMessage("You already busted. Hit Deal to play again");
+			return;
+		}else{
+			playerCards.push(deck[placeInDeck]);
+			placeCard(deck[placeInDeck++],"player", playerCards.length);
+		}
+	}
 }
