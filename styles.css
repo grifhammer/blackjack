@@ -1,7 +1,7 @@
 .buttons{
 	height: 10%;
 	width: 100%;
-	padding: 0 0 10%;
+	padding: 0 0 8%;
 	position: relative;
 }
 
@@ -15,22 +15,22 @@ button{
 }
 
 #draw-button{
-	top: 0%;
+	top: 35%;
 	left: 15%;
 }
 
 #hit-button{
-	top: 0%;
+	top: 35%;
 	left: 47%;
 }
 
 #stand-button{
-	top: 0%;
+	top: 35%;
 	left: 74%;
 }
 
 .hand{
-	padding: 8% 5%;
+	padding: 6% 5%;
 	position: relative;
 }
 
@@ -152,6 +152,19 @@ button{
 .play-field{
 	background: green;
 	border-radius: 10px;
-	padding:1% 0% 0%;
+	padding:1% 0% 2%;
 	position: relative;
+}
+
+@media screen and (max-width: 720px)
+{
+	/**{
+		display:none;
+	}*/
+	/*.button{
+		font-size: 10px;
+	}*/
+	.hand #player-total-wrapper, .hand #dealer-total-wrapper, .button{
+		font-size: 10px;
+	}
 }
