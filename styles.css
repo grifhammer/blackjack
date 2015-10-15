@@ -47,18 +47,21 @@ button{
 #win-count{
 	display: inline;
 }
-.card-empty{
-	background: gray;
+.card{
+	background: white;
 	width: 8%;
-	/*height: 200px;*/
 	max-height: 25%;
 	margin: 0 0%;
 	padding: 1% 0 14%;
-	/*display: inline;*/
 	position: absolute;
 	text-align: center;
+	border: 1px solid blue;
+	/*border-radius: 2px;*/
+}
+
+.card.empty{
 	border: 2px dashed black;
-	/*float: left;*/
+	background: gray;
 }
 
 #player-card-space1{

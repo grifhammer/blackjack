@@ -51,12 +51,34 @@ function deal(){
 
 	console.log(deck);
 
-	//Deal cards to players
-	for(i = 0; i<4; i++){
-		if(i === 0){
-			
-		}
+	var playerSpaces = [];
+	var dealerSpaces = [];
+	for(i = 0; i < 6; i++){
+		playerSpaces[i] = document.getElementById("player-card-space" + (i+1));
+		dealerSpaces[i] = document.getElementById("dealer-card-space" + (i+1));
 	}
+
+
+	//Deal starting cards to players
+
+	playerSpaces[0].innerHTML = deck[0];
+	dealerSpaces[0].innerHTML = deck[1];	
+	playerSpaces[1].innerHTML = deck[2];	
+	dealerSpaces[1].innerHTML = deck[3];
+
+	playerSpaces[0].className = "card";	
+	playerSpaces[1].className = "card";	
+	dealerSpaces[0].className = "card";	
+	dealerSpaces[1].className = "card";	
+
+	// for(i = 0; i<4; i++){
+	// 	if(i === 0){
+			
+	// 	}
+
+	// }
+
+
 }
 
 function stand(){
