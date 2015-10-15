@@ -1,8 +1,6 @@
 var placeInDeck = 0;
 var playerCards = [];
 var dealerCards = [];
-var playerSpaces = [];
-var dealerSpaces = [];
 var deck = [];
 var isBust = 0;
 var winTotal = 0;
@@ -18,12 +16,7 @@ function deal(){
 	//initialize spaces
 	
 
-	for(i = 0; i < 6; i++){
-		playerSpaces[i] = document.getElementById("player-card-space" + (i+1));
-		dealerSpaces[i] = document.getElementById("dealer-card-space" + (i+1));
-		clearSpace(playerSpaces[i]);
-		clearSpace(dealerSpaces[i]);
-	}
+	
 
 	// Store Cards for later reference
 	playerCards[0] = deck[0];
@@ -220,6 +213,9 @@ function endGame(winOrLoss){
 }
 
 function resetGame(){
+	if(!gameIsOver){
+		endGame("loss");
+	}
 	placeinDeck = 0;
 	playerCards = [];
 	dealerCards = [];
@@ -230,6 +226,10 @@ function resetGame(){
 	document.getElementById("player-total").innerHTML = 0;
 	document.getElementById("dealer-total").innerHTML = 0;
 	sendMessage('');
+	var cardSpaces = document.getElementsByClassName("card");
+	for(i = 0; i < cardSpaces.length; i++){
+		clearSpace(cardSpaces[i]);
+	}
 }
 
 function hit(){
