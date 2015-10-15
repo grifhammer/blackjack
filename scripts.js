@@ -54,6 +54,7 @@ function clearSpace(cardSpace){
 function placeCard(card, who, slot){
 	// A delay to make the game more dramatic
 	sleep(1000);
+
 	//gets element that we are placing a card in
 	currentSpace = document.getElementById(who + "-card-space" + slot)
 	if(card.match(/\d+/) == "13"){
