@@ -171,14 +171,13 @@ function stand(){
 	if(!isBust && !gameIsOver){
 		if(getPlayerTotal() > getDealerTotal()){
 			sendMessage("You Won!");
-			winTotal++;
-			gameIsOver = true;
-			updateWins();
+			endGame("win");
+		}else if(getPlayerTotal() === getDealerTotal()){
+			sendMessage("You Tied.");
+			endGame("tie");
 		}else{
 			sendMessage("You Lost!");
-			winTotal--;
-			gameIsOver = true;
-			updateWins();
+			endGame("loss");
 		}
 	}
 }
@@ -209,7 +208,14 @@ function bust(who) {
 	}
 }
 
-function endGame(){
+function endGame(winOrLoss){
+	if(winOrLoss === "win"){
+		winTotal++;
+	}else if(winOrLoss === "loss"){
+		winTotal--;
+	}
+	gameIsOver = true;
+	updateWins();
 
 }
 
