@@ -53,7 +53,7 @@ function clearSpace(cardSpace){
 
 function placeCard(card, who, slot){
 	// A delay to make the game more dramatic
-	sleep(1000);
+	sleep(300);
 
 	//gets element that we are placing a card in
 	currentSpace = document.getElementById(who + "-card-space" + slot)
