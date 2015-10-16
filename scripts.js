@@ -26,6 +26,7 @@ function deal(){
 	dealerCards[1] = deck[3];
 
 	// Place cards on play area
+	sleep(300);
 	placeCard(deck[0],'player', 1);
 	placeCard(deck[1],'dealer', 1);
 	placeCard(deck[2],'player', 2);
@@ -53,7 +54,7 @@ function clearSpace(cardSpace){
 
 function placeCard(card, who, slot){
 	// A delay to make the game more dramatic
-	sleep(300);
+	
 
 	//gets element that we are placing a card in
 	currentSpace = document.getElementById(who + "-card-space" + slot)
@@ -172,6 +173,7 @@ function getPlayerTotal(){
 function stand(){
 	while( getDealerTotal() < 17 ) {
 		dealerCards.push(deck[placeInDeck]);
+		sleep(300);
 		placeCard(deck[placeInDeck++], "dealer", dealerCards.length);
 	}
 	if(!isBust && !gameIsOver){
@@ -248,6 +250,7 @@ function hit(){
 			return;
 		}else{
 			playerCards.push(deck[placeInDeck]);
+			sleep(300);
 			placeCard(deck[placeInDeck++],"player", playerCards.length);
 		}
 	}
