@@ -120,6 +120,8 @@ function calculateTotals (){
 	var dealerTotal = 0;
 	var numPlayerAces = 0;
 	var numDealerAces = 0;
+
+	// Calculate hand value for player
 	for( i =0; i < playerCards.length; i++){
 		cardValue = Number(playerCards[i].match(/\d+/))
 		if(cardValue > 10){
@@ -130,6 +132,8 @@ function calculateTotals (){
 		}
 		playerTotal += cardValue;
 	}
+
+// Calculate hand value for dealer
 
 	for( i =0; i < dealerCards.length; i++){
 		cardValue = Number(dealerCards[i].match(/\d+/))
@@ -142,6 +146,8 @@ function calculateTotals (){
 		dealerTotal += cardValue;
 	}
 
+
+	// Handle Aces being 1 or 11
 	while(numPlayerAces > 0 && playerTotal > 21 ){
 		numPlayerAces--;
 		playerTotal -= 10;
