@@ -47,10 +47,10 @@ function sleep(milliseconds) {
   }
 }
 
-function clearSpace(cardSpace){
-	cardSpace.addClass('empty');
-	cardSpace.html('-');
-}
+// function clearEachSpace(cardSpace){
+// 	cardSpace.addClass( "empty" );
+// 	cardSpace.html('-');
+// }
 
 function placeCard(card, who, slot){
 	// A delay to make the game more dramatic
@@ -157,8 +157,8 @@ function calculateTotals (){
 		dealerTotal -= 10;
 	}
 
-	$("#player-total").html(playerTotal);
-	$("#dealer-total").html(dealerTotal);
+	$('#player-total').html(playerTotal);
+	$('#dealer-total').html(dealerTotal);
 
 	
 	if( playerTotal > 21 ){
@@ -169,11 +169,11 @@ function calculateTotals (){
 }
 
 function getDealerTotal(){
-	return Number($("#dealer-total").innerHTML)
+	return Number($("#dealer-total").html())
 }
 
 function getPlayerTotal(){
-	return Number($("#player-total").innerHTML)
+	return Number($("#player-total").html())
 }
 
 function stand(){
@@ -197,11 +197,11 @@ function stand(){
 }
 
 function sendMessage(message){
-	$("#message").html(message);
+	$('#message').html(message);
 }
 
 function updateWins(){
-	$("#win-count").html(winTotal);
+	$('#win-count').html(winTotal);
 }
 
 function bust(who) {
@@ -240,13 +240,14 @@ function resetGame(){
 	sendMessage("");
 	gameIsOver = false;
 	deck = shuffleDeck();
-	$("#player-total").html(0);
-	$("#dealer-total").html(0);
+	$('#player-total').html(0);
+	$('#dealer-total').html(0);
 	sendMessage('');
-	var cardSpaces = $(".card");
-	for(i = 0; i < cardSpaces.length; i++){
-		clearSpace(cardSpaces[i]);
-	}
+	var cardSpaces = $('.card');
+	cardSpaces.each(function(){
+		$(this).addClass('empty');
+		$(this).html('-');
+	});
 }
 
 function hit(){
