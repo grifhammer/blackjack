@@ -47,17 +47,17 @@ function sleep(milliseconds) {
   }
 }
 
-function clearSpace(cardSpace){
-	cardSpace.className = "card empty";
-	cardSpace.innerHTML = '-';
-}
+// function clearEachSpace(cardSpace){
+// 	cardSpace.addClass( "empty" );
+// 	cardSpace.html('-');
+// }
 
 function placeCard(card, who, slot){
 	// A delay to make the game more dramatic
 	
 
 	//gets element that we are placing a card in
-	currentSpace = document.getElementById(who + "-card-space" + slot)
+	currentSpace = $("#" + who + "-card-space" + slot)
 	if(card.match(/\d+/) == "13"){
 		card =  "K" + card[2];
 	}else if(card.match(/\d+/) == "12"){
@@ -67,8 +67,8 @@ function placeCard(card, who, slot){
 	}else if(card.match(/\d+/) == "1"){
 		card = "A" + card[1];
 	}
-	currentSpace.innerHTML = card;
-	currentSpace.className = "card";
+	currentSpace.html(card);
+	currentSpace.removeClass("empty");
 	calculateTotals();
 }
 
@@ -157,8 +157,8 @@ function calculateTotals (){
 		dealerTotal -= 10;
 	}
 
-	document.getElementById("player-total").innerHTML = playerTotal;
-	document.getElementById("dealer-total").innerHTML = dealerTotal;
+	$('#player-total').html(playerTotal);
+	$('#dealer-total').html(dealerTotal);
 
 	
 	if( playerTotal > 21 ){
@@ -169,11 +169,11 @@ function calculateTotals (){
 }
 
 function getDealerTotal(){
-	return Number(document.getElementById("dealer-total").innerHTML)
+	return Number($("#dealer-total").html())
 }
 
 function getPlayerTotal(){
-	return Number(document.getElementById("player-total").innerHTML)
+	return Number($("#player-total").html())
 }
 
 function stand(){
@@ -197,11 +197,11 @@ function stand(){
 }
 
 function sendMessage(message){
-	document.getElementById("message").innerHTML = message;
+	$('#message').html(message);
 }
 
 function updateWins(){
-	document.getElementById("win-count").innerHTML = winTotal;
+	$('#win-count').html(winTotal);
 }
 
 function bust(who) {
@@ -240,13 +240,14 @@ function resetGame(){
 	sendMessage("");
 	gameIsOver = false;
 	deck = shuffleDeck();
-	document.getElementById("player-total").innerHTML = 0;
-	document.getElementById("dealer-total").innerHTML = 0;
+	$('#player-total').html(0);
+	$('#dealer-total').html(0);
 	sendMessage('');
-	var cardSpaces = document.getElementsByClassName("card");
-	for(i = 0; i < cardSpaces.length; i++){
-		clearSpace(cardSpaces[i]);
-	}
+	var cardSpaces = $('.card');
+	cardSpaces.each(function(){
+		$(this).addClass('empty');
+		$(this).html('-');
+	});
 }
 
 function hit(){
